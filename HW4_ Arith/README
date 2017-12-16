@@ -1,0 +1,56 @@
+Ethan Chen and Edwin Jain
+
+We would like to thank all of the 40 TA's that assisted us in this process. 
+Some TA's were especially helpful, including: 
+1. Chris and Ashton, who stayed up extremely late with us to help 
+2. Supriya, who took time outside of office hours to assist us 
+3. Harper, Donna, Russell, Iris and Diana who were extremely helpful 
+during office hours. 
+
+We believe that the majority of this project has been implemented correctly,
+but in decompressed images there are some quantization artifacts that we
+could not track down.
+
+ARCHITECTURE: 
+Modules: 
+        
+        Codeword: Deals with packing and unpacking the codewords 
+        
+        Calculate: Deals with performing calculations for both compress and
+        decompress, such as DCT and inverse DCT. 
+
+        Bitpack: Deals with getting and putting values in bit fields.
+
+        RGB_CVC: Handles turning Pnm_rgb structs into cvc structs and back
+
+        Process_image: Handles reading in the file pointer and with 
+        reading in headers to decompress files. 
+
+        40image: Contains main that performs compression or decompression
+        depending on which option is selected. The details of how our program
+        handles the two differently are hidden from the user of the program.
+
+
+Compress: 
+        1. Maps over the picture using map block major, using the apply
+        function process_pixel, passing in a UArray_T as a closure. 
+        2. Process pixel calls the rgb_cvc module, then fills the UArray_T 
+        closure. 
+        3. Performs calculations on the UArray_T closure 
+        4. Packs and prints the codeword to file. 
+
+Decompress: 
+        1. Calls read header to get information about picture 
+        which creates new UArray2b, trims edges and places pixels in 
+        UArray2b so we can map block major. 
+        2. Maps over this UArray2b with map block major using the apply 
+        function fill_RGB. 
+        3. fill_RGB calls the codeword and process image module which gives 
+        us a UArray_T with a, b, c, d, pb and pr in it. 
+        4. Then calls the calculations module on this UArray_T. 
+        5. Calls RGB_CVC module on this UArray_T, and places Pnm_RGB
+        structs in the correct place in the UArray2b. 
+
+Total Time Spent: 65 hours
+We spent approximately 10 hours analyzing the problem, and around 
+55 hours implementing the solution (the majority of which was debugging.)
