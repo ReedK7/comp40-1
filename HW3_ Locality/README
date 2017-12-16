@@ -1,0 +1,85 @@
+This project was completed by Ethan Chen and Edwin Jain. 
+
+We would like to thank many of the Comp40 TAs, including  Russell, Supriya, 
+Harper, Donna and Chris, for the advice and guidance that they provided 
+throughout this project. We would also like to Noah Mendelsohn for his 
+help during the project. 
+
+We believe that UArray2b, A2plain and ppmtrans have all been implemented 
+correctly. 
+
+
+ARCHITECTURE: 
+
+UArray2b:
+We decided to represent our blocked UArray2 as a single UArray_T. We used 
+mathematical formulas that mapped an element to a certain index in the 1D 
+array based on the row and column of the element in its original 2D array.
+We implemented a function that converted a 2D index into the 1D index, as 
+well as a function to turn a 1D index back into a 2D index. 
+If the blocksize made it so that not every space in the block was full, there
+would be an empty index in the 1D array. The UArray_T was such that it was in 
+block-major order. This made writing our map_block_major function much easier, 
+because could just map over the array in order (skipping empty spaces using a 
+checkvalid function) and apply the function to each element.
+
+A2plain: 
+We implemented the A2plain method suite by following the outline given by the 
+A2blocked implementation provided. Our A2plain implementation uses the UArray2 
+functions given by the implementation of UArray2 given to us. 
+
+ppmtrans: 
+We implemented ppmtrans as instructed, using the using the method suite to 
+rotate different images. We use a certain mapping method, depending on what has 
+been specified or what is the default method, in order to place each function 
+in it's rotated position. We do that by passing in a struct that contains the 
+method suite, allowing us to access it, as well as a new A2Method_UArray2, to 
+store the pixels in their rotated positions. Our rotating functions take in 
+a pixel, find its rotated index, and place it in the new pixelmap at that
+position. At the end of ppmtrans, the rotated pixelmap is what is printed out.
+
+PART E Measure and explain improvements in locality: 
+Name and Model of Computer: HP Envy 
+CPU Type: AMD Opteron Processor 6380 
+Clock rate: 2500 MHz 
+
+Size of Image: 46,259 KB 
+
+Mapping Function: Map_Row_Major 
+Rotation:                       90            180            270                
+Time for rotation (s):      2.13          1.11          2.24
+Time Per Pixel (ns):       135           70             141
+Instructions per Pixel:     337          176            355          
+
+Mapping Function: Map_Col_Major 
+Rotation:                       90            180            270                
+Time for rotation (s):      1.76          2.90          1.74
+Time Per Pixel (ns):       111           183            110
+Instructions per Pixel:     279          460            276
+
+Mapping Function: Map_Block_Major 
+Rotation:                       90            180            270                
+Time for rotation (s):      2.61          2.60          2.53
+Time Per Pixel (ns):       165           165            160
+Instructions per Pixel:     414          412            401
+ 
+(Calculation for Instructions/pixel = 
+(Instructions/per second) * seconds for rotation / pixels) 
+
+Explanation: 
+The UArray2 is stored in row major order. Reading and writing row major is 
+faster because we are accessing contiguous memory locations, which results 
+in a high cache hit rate. Thus, rotating 180 degrees using map_row_major 
+is the fastest because we are reading and writing in row major order. 
+Using map_column_major to rotate 90 degrees is faster that using 
+map_row_major because we are writing to rows in the former case, and cache
+misses for writing are more expensive than those for reading. Map_col_major 
+is the slowest for 180 degrees we are both reading and writing in col major 
+order. Map_block_major is consistently slow which contradicted our 
+expectations prior to the assignment. However, we are guessing that the 
+modular arithmetic and divisions we used to convert and validate indices 
+while mapping were quite expensive, causing map_block_major to be slower
+despite its locality properties. 
+
+
+We spent around 32 hours completing this project. 
