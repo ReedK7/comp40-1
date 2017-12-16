@@ -1,0 +1,30 @@
+Ethan Chen and Genevieve Silverman
+
+We received help from Harper, Diana, Chris, and Wesley.
+
+The code that takes the longest to perform in our program
+is on line 1356:
+        return word >> bits
+This line of code is part of a function called shr that
+performs a right shift. This function gets called three
+times in our Machine_performInstruction() function, and
+we can see those three right shifts in our assembly code:
+  400f56:       48 c1 e9 3d             shr    $0x3d,%rcx
+  400f5a:       48 c1 ea 3d             shr    $0x3d,%rdx
+  400f5e:       48 89 d5                mov    %rdx,%rbp
+  400f61:       48 89 c2                mov    %rax,%rdx
+  400f64:       48 c1 ea 1c             shr    $0x1c,%rdx
+We do not think that we can improve this assembly code in
+any way because it is a simple and unavoidable right shift
+that cannot be further simplified; however, we believe
+that in our actual program, we could work around this by 
+masking instead of shifting.
+
+We spent..
+        2 hours analyzing the assignment
+        15 hours solving the problems posed in the assignment
+
+Benchmarks:
+        Small  = midmark.um
+        Medium = advent.umz (with solution from spec)
+        Large  = sandmark.umz  
