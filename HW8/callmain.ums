@@ -1,0 +1,10 @@
+# Ethan Chen, Ethan Geismar
+# COMP40 HW8
+# callmain.ums
+# Calls main
+
+.zero r0 
+.temps r6, r7 
+.section init 
+         goto main               # linking r1? 
+         halt 

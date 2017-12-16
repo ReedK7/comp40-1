@@ -1,0 +1,98 @@
+.zero r0                # r0 is 0 register
+.temps r6,r7            # r6 and r7 are temps
+#.section text
+                        # r3 and r4 are nonvolatile; r4 holds stack size
+                        # r1 holds return address, function value, input
+                        # r5 is a volatile that will hold return addresses
+  
+
+      
+.section init
+m[r0][jumptable + '/'] := div
+m[r0][jumptable + '*'] := mul
+m[r0][jumptable + '+'] := add
+m[r0][jumptable + '-'] := sub
+m[r0][jumptable + '|'] := or
+m[r0][jumptable + '&'] := and
+m[r0][jumptable + 'c'] := change
+m[r0][jumptable + '~'] := comp
+m[r0][jumptable + 's'] := swap
+m[r0][jumptable + 'd'] := dup
+m[r0][jumptable + 'p'] := pop
+m[r0][jumptable + 'z'] := zer
+
+.section text
+waiting:
+        r1 := input()
+//waiting_with_character:
+        if (r1 == EOF) 
+           goto end_prog
+         r5 
+
+
+end_prog: 
+         halt
+ 
+div:
+        push r1 on stack r2
+        push r3 on stack r2
+        push r4 on stack r2
+
+        r3 := m[r0][r2+3]
+        r4 := m[r0][r2+4]
+        r1 := r4 / r3
+
+        pop r4 off stack r2
+        pop r3 off stack r2
+        pop r5 off stack r2
+        goto r5
+mul:
+        push r1 on stack r2
+        push r3 on stack r2
+        push r4 on stack r2
+
+        r3 := m[r0][r2+3]
+        r4 := m[r0][r2+4]
+        r1 := r4 / r3
+
+        pop r4 off stack r2
+        pop r3 off stack r2
+        pop r5 off stack r2
+        goto r5 
+add:
+        push r1 on stack r2
+        push r3 on stack r2
+        push r4 on stack r2
+
+        r3 := m[r0][r2+3]
+        r4 := m[r0][r2+4]
+        r1 := r4 + r3
+
+        pop r4 off stack r2
+        pop r3 off stack r2
+        pop r5 off stack r2
+        goto r5
+sub:
+        push r1 on stack r2
+        push r3 on stack r2
+        push r4 on stack r2
+
+        r3 := m[r0][r2+3]
+        r4 := m[r0][r2+4]
+        r1 := r4 - r3
+
+        pop r4 off stack r2
+        pop r3 off stack r2
+        pop r5 off stack r2
+        goto r5
+swap:
+        push r3 on stack r2
+        push r4 on stack r2
+
+        r3 := m[r0][r2+2]
+        m[r0][r2+2] := m[r0][r2+3]
+        m[r0][r2+3] := r3
+
+        pop r4 off stack r2
+        pop r3 off stack r2
+        goto r5

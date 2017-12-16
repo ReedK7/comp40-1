@@ -1,0 +1,13 @@
+# Ethan Chen, Ethan Geismar
+# COMP 40 HW8
+# stack.ums 
+# Initializes the value stack
+
+.zero r0 
+.temps r6, r7 
+.section stk 
+.space 10000
+endstack: 
+.section init 
+r2 := endstack
+

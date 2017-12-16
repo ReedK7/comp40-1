@@ -1,0 +1,117 @@
+.zero r0                # r0 is 0 register
+.temps r6,r7            # r6 and r7 are temps
+#.section text
+                        # r3 and r4 are nonvolatile; r4 holds stack size
+                        # r1 holds return address, function value, input
+                        # r5 is a volatile that will hold return addresses
+  
+
+      
+.section init
+
+jumptable: 
+	.space 255
+init_jump_table:
+	push r3 on stack r2
+	r3 := 0
+	goto init_table 
+	
+init_table:
+	r4 := jumptable + r3 
+	m[r0][r4] := input_error  
+	r5 := 255 - r4 
+	r3 := r3 + 1 
+	if (r5 != 0) goto init_table 
+	
+	m[r0][jumptable + '\n'] := newline 
+	m[r0][jumptable + ' '] := waiting
+#	m[r0][jumptable + '/'] := div
+#	m[r0][jumptable + '*'] := mul
+	m[r0][jumptable + '+'] := add
+#	m[r0][jumptable + '-'] := sub
+#	m[r0][jumptable + '|'] := or
+#	m[r0][jumptable + '&'] := and
+#	m[r0][jumptable + 'c'] := change
+#	m[r0][jumptable + '~'] := comp
+#	m[r0][jumptable + 's'] := swap
+#	m[r0][jumptable + 'd'] := dup
+#	m[r0][jumptable + 'p'] := popit
+#	m[r0][jumptable + 'z'] := zer
+
+	m[r0][jumptable + '0'] := dig
+	m[r0][jumptable + '1'] := dig
+	m[r0][jumptable + '2'] := dig
+	m[r0][jumptable + '3'] := dig
+	m[r0][jumptable + '4'] := dig
+	m[r0][jumptable + '5'] := dig
+	m[r0][jumptable + '6'] := dig
+	m[r0][jumptable + '7'] := dig
+	m[r0][jumptable + '8'] := dig
+	m[r0][jumptable + '9'] := dig
+
+
+.section text
+main: 
+      goto waiting 
+waiting:
+        r1 := input()
+        
+if (r1 == -1) goto end_prog using r3
+	r3 := jumptable + r1
+        r5 := m[r0][r3]
+	goto r5
+	
+dig: 
+	push r1 on stack r2 
+	goto entering 
+
+newline: 
+      r4 := r4 - 1
+      r5 := r2 + r4 
+      r3 := m[r0][r5]  
+      output r3 
+       
+      if (r4 != 0) goto newline 
+      goto waiting 
+      
+entering: 
+	r1 := input()
+	
+	if (r1 <= 0 && r1 <= 9) goto check_digit
+	  
+	goto m[r0][jumptable + r1] 
+	
+check_digit:
+      pop r3 off stack r2 
+      r5 := r3 * 10 + r1
+      push r5 on stack r2
+      goto entering
+      
+input_error:
+	output “unknown character”
+	output r1 
+	ouput “\n”
+	goto waiting 
+	
+
+end_prog: 
+         halt
+ 
+ add:
+        push r1 on stack r2
+        push r3 on stack r2
+        push r4 on stack r2
+
+        r3 := m[r0][r2+3]
+        r4 := m[r0][r2+4]
+        r1 := r4 + r3
+
+        pop r4 off stack r2
+        pop r3 off stack r2
+        pop r5 off stack r2
+        push r1 on stack r2
+        r4 := r4 + 1
+        goto r5
+
+
+

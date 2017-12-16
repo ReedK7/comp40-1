@@ -1,0 +1,25 @@
+#Ethan Chen and Ethan Geismar
+#Comp 40 HW8
+#printd.ums 
+#contains our print functions for the calc40 program
+
+.section init 
+
+.section text 
+    
+
+    
+print: 
+	output ">>> "
+	goto check_neg 
+	goto pr
+check_neg 
+	r5 := r1 & 2147483648
+	if (r5 != 0) goto print_neg 
+	output r1 
+	
+print_neg:
+	output "-" 
+	output r1 
+	
+  
