@@ -1,0 +1,76 @@
+This is bomb 56 for lab comp40fall17.
+
+It is owned by the following student(s):
+ethan.chen@tufts.edu
+genevieve.silverman@tufts.edu
+
+
+Ethan Chen and Genevieve Silverman 
+Bomb #: 56 
+
+We would like to thank the many TA's that helped us during this process. 
+Special Shoutout to Ben and Chris for being extra helpful. 
+
+Explanations of the Phases: 
+
+Phase 1: 
+Phase 1 read in a string and then compared it to the string: 
+"Words whose utter inanity proved his insanity." If the input string was 
+different the bomb exploded. 
+
+Phase 2: 
+Phase 2 read in a series of six numbers and placed them in an array. 
+The first index had to hold one, and the number at index i (greater than 0) 
+had to be the equivalent of number in the previous index multiplied by 
+(i + 1).
+
+Phase 3: 
+Phase 3 read in two integers, and contained 8 cases in a switch statement. The
+first integer (which had to be greater or equal 0 and less than 7) determined
+which case of a switch statement in phase 3 the number would go through first. 
+The switch statement contained logic to perform addition and subtraction 
+arithmetic that calculated a number that the second inputted number had to be 
+equivalent to, otherwise the bomb would explode. The second number changed 
+based on what the first number was. 
+
+Phase 4:
+Phase 4 read in exactly one integer and called a recursive function called 
+func4. func4 took an integer n and returned 1 if n was less than or equal to 
+zero, otherwise returned (n * 8 - n)!. The end result of the func4 call with 
+the parsed integer had to be 2401, otherwise the bomb would explode. 
+
+Phase 5: 
+Phase 5 read in a character string with a length of 6. For each character in
+the string, the least significant 4 bits were evaluated by &ing with a mask of 
+0xf and corresponded to an index in a constant array of ints in memory. These 6
+characters had to correspond to 6 ints in the array that added up to 43, 
+otherwise the bomb would explode. 
+
+Phase 6: 
+Phase 6 read in an integer and placed it in the head node of a linked list of 
+10 nodes, each of which contained an int. It then called a function called 
+func6 which sorted the linked list in order from greatest to least by int 
+value. The function returned the new head node of the sorted linked list. 
+Phase 6 would then compare our parsed integer to the value in the 6th 
+node of the list, and if they were not the same, the bomb would explode. 
+
+Secret Phase: 
+The secret phase was entered by adding the word "Boojum" to the line containing
+the answer to the fourth phase. The secret phrase was only entered after 
+defusing six phases, because the phase_defused function checked how many phases 
+had been defused. Secret_phase read in exactly one number, and checked whether 
+one less than it was less than 1000. If the number read in minus one was more 
+than 1000 the bomb exploded. If not, it called a function called func7. func7 
+took a pointer to a binary search tree node and a target number to
+search for. It recursively traversed the tree in the direction that the 
+target number was in. If it found the target number it returned 0 at that
+level. For any traversal to the left that it did, it returned two times the
+prior return value. For any traversal to the right that it did, it returned two
+times the prior return value plus one. The secret phase expected that the fun7
+would return 1 when searching for a target value in a global binary search
+tree defined in the program. If the number is not found ~0 is returned. If the 
+return value of the initial call of func7 was not 1, the bomb exploded. 
+
+
+TIME: We spent approximately 24 hours on this project. 
+
