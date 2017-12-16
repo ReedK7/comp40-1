@@ -1,0 +1,20 @@
+Ethan Chen and Edwin Jain
+HW2 - III
+
+
+Acknowledgements: 
+We would like to thank Russell for debugging
+our unblackedges with us, Donna for debugging our sudoku, and
+Noah for letting us know that we shouldn't use UArrays of UArrays for
+our Bit2 implementation. Other TAs also helped us along the way.
+
+Implementation:
+We believe we have implemented everything correctly.
+
+Time:
+We spent approximately 30 hours on this project -
+Implementation: 15 hours
+Debugging/Rewriting/Testing: 12 hours
+Commenting and Formatting: 3 hours
+
+
